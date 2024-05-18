@@ -10,9 +10,9 @@ export default async function Home() {
   const banners = await client.fetch(bannerQuery);
 
 
-    // Ensure plain object data
-    const plainBanners = JSON.parse(JSON.stringify(banners));
-    const plainProducts = JSON.parse(JSON.stringify(products));
+  // Ensure plain object data
+  const plainBanners = JSON.parse(JSON.stringify(banners));
+  const plainProducts = JSON.parse(JSON.stringify(products));
   return (
     <>
       <HeroBanner heroBanners={banners.length && banners[0]} />
@@ -24,10 +24,10 @@ export default async function Home() {
 
       <div className="products-container">
         {products?.map((product) => (
-           product.name
+          <Product key={product._id} product={product} />
         ))}
       </div>
-      <FooterBanner  />
+      <FooterBanner />
     </>
   );
 }
