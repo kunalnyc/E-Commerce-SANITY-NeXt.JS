@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Product, HeroBanner, FooterBanner } from '../../components';
+import { Product, HeroBanner, FooterBanner, Layout } from '../../components';
 import { client } from '../../lib/client';
 
 export default async function Home() {
@@ -27,7 +27,8 @@ export default async function Home() {
           <Product key={product._id} product={product} />
         ))}
       </div>
-      <FooterBanner footerBanner={banners.length && banners[0]}/>
+      <FooterBanner footerBanner={banners.length && banners[0]} />
+
     </>
   );
 }
