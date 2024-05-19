@@ -27,7 +27,7 @@ export default async function Home() {
           <Product key={product._id} product={product} />
         ))}
       </div>
-      <FooterBanner />
+      <FooterBanner footerBanner={banners.length && banners[0]}/>
     </>
   );
 }
