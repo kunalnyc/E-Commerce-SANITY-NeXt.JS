@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
         <title>French angel cosmetics</title>
       </Head>
       <header>
-        <Navbar />
+        <Navbar  />
       </header>
       <main className='main-container'>
         {children}
