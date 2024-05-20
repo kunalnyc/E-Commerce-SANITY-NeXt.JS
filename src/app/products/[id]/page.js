@@ -1,67 +1,46 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { urlForImage } from '../../../../sanity/lib/image';
+import { fetchProduct } from '../../../../lib/fetchProduct';
+import { Layout } from '@/app/components';
+// Create a component to handle the product details
+function ProductDetails({ product }) {
+  if (!product) {
+    return <div>Product not found</div>;
+  }
 
-
-
-const ProductDetails = ({ product }) => {
-
-
+  const { image, name, price, details } = product;
 
   return (
-
     <div className='product-detail-container'>
       <div>
-        Hey
         <div className='image-container'>
-
-          {/* <img src={urlForImage(product.image)} /> */}
-
+          {image && image.length > 0 && (
+            <img src={urlForImage(image[0])} alt={name} />
+          )}
         </div>
       </div>
       <div className='product-details-desc'>
-        {/* <h1>{name}</h1>
-                    <p>{details}</p>
-                    <p className='price'>${price}</p> */}
+        <h1>{name}</h1>
+        <p>{details}</p>
+        <p className='price'>${price}</p>
       </div>
     </div>
-
   );
-};
-
-export const getStaticPaths = async () => {
-  const query = `*[_type == "product"] {
-    slug {
-      current
-    }
-  }
-  `;
-
-  const products = await client.fetch(query);
-
-  const paths = products.map((product) => ({
-    params: { 
-      slug: product.slug.current
-    }
-  }));
-
-  return {
-    paths,
-    fallback: 'blocking'
-  }
 }
 
-export const getStaticProps = async ({ params: { slug }}) => {
-  const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-  const productsQuery = '*[_type == "product"]'
-  
-  const product = await client.fetch(query);
-  const products = await client.fetch(productsQuery);
+// Main page component
+export default async function Page({ params }) {
+  const { slug } = params;
 
-  console.log(product);
+  // Fetch the product data
+  const productPromise = fetchProduct(slug);
 
-  return {
-    props: { products, product }
-  }
+  // Use Suspense to wait for the product data
+  return (
+    <Layout>
+      <Suspense fallback={<div>Loading product details...</div>}>
+        <ProductDetails product={await productPromise} />
+      </Suspense>
+    </Layout>
+  );
 }
-
-export default ProductDetails;

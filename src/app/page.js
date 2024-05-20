@@ -11,8 +11,8 @@ export default async function Home() {
 
 
   // Ensure plain object data
-  const plainBanners = JSON.parse(JSON.stringify(banners));
-  const plainProducts = JSON.parse(JSON.stringify(products));
+  // const plainBanners = JSON.parse(JSON.stringify(banners));
+  // const plainProducts = JSON.parse(JSON.stringify(products));
   return (
     <>
       <HeroBanner heroBanners={banners.length && banners[0]} />
