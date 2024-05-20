@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { urlForImage } from '../sanity/lib/image'
+
 const FooterBanner = ({ footerBanner }) => {
   return (
     <div className='footer-banner-container'>

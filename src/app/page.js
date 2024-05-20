@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Product, HeroBanner, FooterBanner, Layout } from '../../components';
+import { Product, HeroBanner, FooterBanner, Layout } from './components';
 import { client } from '../../lib/client';
 
 export default async function Home() {
@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <>
       <HeroBanner heroBanners={banners.length && banners[0]} />
-  
+
       <div className="products-heading">
         <h2>Best Selling Products</h2>
         <p>Speakers of many variations!</p>
