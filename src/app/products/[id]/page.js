@@ -28,18 +28,22 @@ function ProductDetails({ product }) {
   );
 }
 
-// Main page component
 export default async function Page({ params }) {
-  const { slug } = params;
+  const { id } = params;
+  const product = await fetchProduct(id);
 
-  // Fetch the product data
-  const productPromise = fetchProduct(slug);
+  if (!product) {
+    return (
+      <Layout>
+        <div>Product not found</div>
+      </Layout>
+    );
+  }
 
-  // Use Suspense to wait for the product data
   return (
     <Layout>
       <Suspense fallback={<div>Loading product details...</div>}>
-        <ProductDetails product={await productPromise} />
+        <ProductDetails product={product} />
       </Suspense>
     </Layout>
   );
