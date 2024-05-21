@@ -1,4 +1,5 @@
-import React, { Suspense } from 'react';
+"use client"
+import React, { Suspense, useState } from 'react';
 import { urlForImage } from '../../../../sanity/lib/image';
 import { fetchProduct } from '../../../../lib/fetchProduct';
 import { Layout } from '@/app/components';
@@ -7,12 +8,15 @@ import { Product } from '@/app/components';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { fetchRelatedProducts } from '../../../../lib/fetchProduct';
 // Create a component to handle the product details
+
 function ProductDetails({ product, relatedProducts }) {
   if (!product) {
     return <div>Product not found</div>;
   }
 
   const { image, name, price, details } = product;
+  const [index, setIndex] = useState(0); // Define index state variable
+
 
   return (
     <div>
@@ -20,16 +24,20 @@ function ProductDetails({ product, relatedProducts }) {
         <div>
           <div className='image-container'>
             {image && image.length > 0 && (
-              <img src={urlForImage(image[0])} alt={name} />
+              <img src={urlForImage(image[index])} alt={name} className="product-detail-image" />
             )}
           </div>
-          {/* <div className='small-images-container'>
-          {image.map((item, i) => (
-            <img src={urlForImage(item)}
-              className='' onMouseEnter='' />
-          ))}
-
-        </div> */}
+          <div className='small-images-container'>
+            {image.map((item, i) => (
+              <img
+                key={i}
+                src={urlForImage(item)}
+                className={i === index ? 'small-image selected-image' : 'small-image'}
+                alt={`Thumbnail ${i}`}
+                onMouseEnter={() => setIndex(i)} // Update index on mouse enter
+              />
+            ))}
+          </div>
         </div>
         <div className='product-detail-desc'>
           <h1>{name}</h1>
@@ -63,7 +71,7 @@ function ProductDetails({ product, relatedProducts }) {
       <div className='maylike-products-wrapper'>
         <h2 > <AiOutlineStar /> BEST-SELLERS / New Arrivals</h2>
         <div className='marquee' >
-          <div className='maylike-products-container'>
+          <div className='maylike-products-container track'>
             {relatedProducts.map((item) => (
               <Product key={item._id} product={item} />
             ))}
