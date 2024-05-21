@@ -41,10 +41,10 @@ export default async function Page({ params }) {
   }
 
   return (
-    <Layout>
-      <Suspense fallback={<div>Loading product details...</div>}>
-        <ProductDetails product={product} />
-      </Suspense>
-    </Layout>
+
+    <Suspense fallback={<div>Loading product details...</div>}>
+      <ProductDetails product={product} />
+    </Suspense>
+
   );
 }
