@@ -21,7 +21,7 @@ function ProductDetails({ product, relatedProducts }) {
         <div>
           <div className='image-container'>
             {image && image.length > 0 && (
-              <img src={urlForImage(image && image[0])} className="product-detail-image" />
+              <img src={urlForImage(image[0])} alt={name} className="product-detail-image" />
             )}
           </div>
           <div className='small-images-container'>
@@ -30,7 +30,7 @@ function ProductDetails({ product, relatedProducts }) {
                 key={i}
                 src={urlForImage(item)}
                 className={i === 1 ? 'small-image selected-image' : 'small-image'}
-                onMouseEnter= ''
+                onMouseEnter=''
               />
             ))}
           </div>
